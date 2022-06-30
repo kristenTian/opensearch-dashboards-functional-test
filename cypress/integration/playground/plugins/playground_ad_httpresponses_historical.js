@@ -5,7 +5,7 @@
 
 import { AD_URL } from '../../../utils/constants';
 
-describe('Historical results page', () => {
+describe('AD Http Responses Historical results page', () => {
   const verifyAnomaliesInCharts = () => {
     // Wait for any kicked off historical analysis to finish. Relying on default
     // timeout (60s) to find an element that only shows up when the analysis is finished
@@ -51,18 +51,14 @@ describe('Historical results page', () => {
   before(() => {
     cy.visit(AD_URL.OVERVIEW);
     cy.getElementByTestId('createHttpSampleDetectorButton').click();
-    cy.visit(AD_URL.OVERVIEW);
-    cy.getElementByTestId('viewSampleDetectorLink').click();
+    cy.visit(AD_URL.DETECTOR_LIST);
+    cy.contains('sample-http-responses-detector').click();
     cy.getElementByTestId('historicalTab').click();
   });
 
   // Clean up resources
   after(() => {
-    // cy.getElementByTestId('actionsButton').click();
-    // cy.getElementByTestId('deleteDetectorItem').click();
-    // cy.getElementByTestId('typeDeleteField').type('delete', { force: true });
-    // cy.getElementByTestId('confirmButton').click();
-    // cy.deleteAllIndices();
+    // No need to clea up and keeps the data.
   });
 
   context('Sample detector', () => {
