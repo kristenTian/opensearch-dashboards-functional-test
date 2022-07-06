@@ -4,7 +4,7 @@
  */
 import { BASE_PATH } from '../../base_constants';
 
-export const delayTime = 1500;
+export const delayTime = 1000;
 
 // trace analytics
 export const TRACE_ID = '8832ed6abbb2a83516461960c89af49d';
@@ -235,8 +235,8 @@ export const PPL_FILTER =
  * App constants
  */
 
-export const TYPING_DELAY = 1500;
-export const TIMEOUT_DELAY = Cypress.env('SECURITY_ENABLED') ? 60000 : 30000;
+export const TYPING_DELAY = 500;
+export const TIMEOUT_DELAY = Cypress.env('SECURITY_ENABLED') ? 10000 : 5000;
 
 export const moveToHomePage = () => {
   cy.visit(`${BASE_PATH}/app/observability-dashboards#/application_analytics/`);
@@ -249,7 +249,7 @@ export const moveToHomePage = () => {
 export const moveToCreatePage = () => {
   cy.visit(
     `${BASE_PATH}/app/observability-dashboards#/application_analytics/`,
-    { waitForGetTenant: true }
+    { waitForGetTenant: false }
   );
   cy.wait(delayTime * 2);
   cy.get('.euiButton[href="#/application_analytics/create"]', {
@@ -267,7 +267,7 @@ export const moveToCreatePage = () => {
 export const moveToApplication = (name) => {
   cy.visit(
     `${BASE_PATH}/app/observability-dashboards#/application_analytics/`,
-    { waitForGetTenant: true }
+    { waitForGetTenant: false }
   );
   supressResizeObserverIssue();
   cy.wait(delayTime * 2);
@@ -332,7 +332,7 @@ export const deleteAllSavedApplications = () => {
 
 export const uniqueId = Date.now();
 export const baseQuery = 'source = opensearch_dashboards_sample_data_flights';
-export const nameOne = `Cypress-${uniqueId}`;
+export const nameOne = `sample-${uniqueId}`;
 export const description = 'This is my application for cypress testing.';
 export const trace_one = 'HTTP POST';
 export const trace_two = 'HTTP GET';
