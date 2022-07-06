@@ -78,7 +78,7 @@ export const setTimeFilter = (setEndTime = false, refresh = true) => {
 };
 
 // notebooks
-export const TEST_NOTEBOOK = 'Test Notebook';
+export const TEST_NOTEBOOK = 'Sample Notebook';
 export const SAMPLE_URL =
   'https://github.com/opensearch-project/sql/tree/main/sql-jdbc';
 export const MARKDOWN_TEXT = `%md
@@ -144,11 +144,11 @@ export const TEST_QUERIES = [
   },
 ];
 
-export const TESTING_PANEL = 'Mock Testing Panels';
-export const SAVE_QUERY1 = 'Mock Flight Events Overview';
-export const SAVE_QUERY2 = 'Mock Flight count by destination';
-export const SAVE_QUERY3 = 'Mock Flight count by destination save to panel';
-export const SAVE_QUERY4 = 'Mock Flight peek';
+export const TESTING_PANEL = 'Sample Testing Panels';
+export const SAVE_QUERY1 = 'Sample Flight Events Overview';
+export const SAVE_QUERY2 = 'Sample Flight count by destination';
+export const SAVE_QUERY3 = 'Sample Flight count by destination save to panel';
+export const SAVE_QUERY4 = 'Sample Flight peek';
 
 export const querySearch = (query, rangeSelected) => {
   cy.get('[data-test-subj="searchAutocompleteTextArea"]', {
