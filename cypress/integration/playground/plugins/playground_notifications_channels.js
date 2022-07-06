@@ -155,7 +155,7 @@ describe('Test create channels', () => {
   });
 
   it('creates a sns channel', () => {
-    cy.get('[placeholder="Enter channel name"]').type('sample-sns-channel');
+    cy.get('[placeholder="Enter channel name"]').type('sample sns channel');
 
     cy.get('.euiSuperSelectControl').contains('Slack').click({ force: true });
     cy.wait(delay);
