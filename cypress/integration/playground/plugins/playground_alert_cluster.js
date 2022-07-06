@@ -28,7 +28,9 @@ describe('ClusterMetricsMonitor', () => {
     localStorage.setItem('home:welcome:show', 'false');
 
     // Visit Alerting OpenSearch Dashboards
-    cy.visit(`${BASE_PATH}/app/${ALERTING_PLUGIN_NAME}#/monitors`);
+    cy.visit(`${BASE_PATH}/app/${ALERTING_PLUGIN_NAME}#/monitors`, {
+      waitForGetTenant: false,
+    });
 
     // Common text to wait for to confirm page loaded, give up to 20 seconds for initial load
     cy.contains('Create monitor', { timeout: 20000 });
@@ -70,18 +72,6 @@ describe('ClusterMetricsMonitor', () => {
 
       // Type in the trigger name
       cy.get('input[name="triggerDefinitions[0].name"]').type(SAMPLE_TRIGGER);
-
-      // FIXME: Temporarily removing destination creation to resolve flakiness. It seems deleteAllDestinations()
-      //  is executing mid-testing. Need to further investigate a more ideal solution. Destination creation should
-      //  ideally take place in the before() block, and clearing should occur in the after() block.
-      // // Type in the action name
-      // cy.get('input[name="triggerDefinitions[0].actions.0.name"]').type(SAMPLE_ACTION);
-      //
-      // // Click the combo box to list all the destinations
-      // // Using key typing instead of clicking the menu option to avoid occasional failure
-      // cy.get('div[name="triggerDefinitions[0].actions.0.destination_id"]')
-      //   .click({ force: true })
-      //   .type('{downarrow}{enter}');
 
       // Click the create button
       cy.get('button').contains('Create').click();
@@ -130,18 +120,6 @@ describe('ClusterMetricsMonitor', () => {
 
       // Type in the trigger name
       cy.get('input[name="triggerDefinitions[0].name"]').type(SAMPLE_TRIGGER);
-
-      // FIXME: Temporarily removing destination creation to resolve flakiness. It seems deleteAllDestinations()
-      //  is executing mid-testing. Need to further investigate a more ideal solution. Destination creation should
-      //  ideally take place in the before() block, and clearing should occur in the after() block.
-      // // Type in the action name
-      // cy.get('input[name="triggerDefinitions[0].actions.0.name"]').type(SAMPLE_ACTION);
-      //
-      // // Click the combo box to list all the destinations
-      // // Using key typing instead of clicking the menu option to avoid occasional failure
-      // cy.get('div[name="triggerDefinitions[0].actions.0.destination_id"]')
-      //   .click({ force: true })
-      //   .type('{downarrow}{enter}');
 
       // Click the create button
       cy.get('button').contains('Create').click();
