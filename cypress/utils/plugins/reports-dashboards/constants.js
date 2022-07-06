@@ -15,4 +15,4 @@ export function visitReportingLandingPage() {
   );
 }
 
-export const WAIT_TIME = 15000;
+export const WAIT_TIME = 5000;
