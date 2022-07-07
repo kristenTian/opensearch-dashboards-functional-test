@@ -236,7 +236,7 @@ export const PPL_FILTER =
  */
 
 export const TYPING_DELAY = 500;
-export const TIMEOUT_DELAY = Cypress.env('SECURITY_ENABLED') ? 10000 : 5000;
+export const TIMEOUT_DELAY = Cypress.env('SECURITY_ENABLED') ? 60000 : 30000;
 
 export const moveToHomePage = () => {
   cy.visit(`${BASE_PATH}/app/observability-dashboards#/application_analytics/`);
