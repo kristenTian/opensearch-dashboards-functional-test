@@ -6,249 +6,182 @@
 /// <reference types="cypress" />
 
 import {
-  PANEL_DELAY as delay,
+  delayTime,
+  TEST_NOTEBOOK,
+  MARKDOWN_TEXT,
+  SQL_QUERY_TEXT,
+  PPL_QUERY_TEXT,
   SAMPLE_PANEL,
-  PPL_VISUALIZATIONS,
-  PPL_VISUALIZATIONS_NAMES,
-  supressResizeObserverIssue,
   BASE_PATH,
 } from '../../../utils/constants';
 
-const moveToEventsHome = () => {
-  cy.visit(`${BASE_PATH}/app/observability-dashboards#/event_analytics/`);
-  cy.wait(delay * 3);
-};
-
 const moveToPanelHome = () => {
   cy.visit(`${BASE_PATH}/app/observability-dashboards#/operational_panels/`);
-  cy.wait(delay * 3);
+  cy.wait(delayTime * 3);
 };
 
-const moveToTestPanel = () => {
-  moveToPanelHome();
-  cy.get('.euiTableCellContent')
-    .contains(SAMPLE_PANEL)
-    .trigger('mouseover')
-    .click();
-  cy.wait(delay * 3);
-  cy.get('h1').contains(SAMPLE_PANEL).should('exist');
-  cy.wait(delay);
-};
-
-describe('Creating visualizations', () => {
-  beforeEach(() => {
-    moveToEventsHome();
-  });
-
-  it('Create first visualization in event analytics', () => {
-    cy.get('[id^=autocomplete-textarea]').focus().type(PPL_VISUALIZATIONS[0], {
-      delay: 50,
+describe('Adding sample visualization', () => {
+  it('Add sample observability data', () => {
+    moveToPanelHome();
+    cy.get('.euiButton__text').contains('Actions').trigger('mouseover').click();
+    cy.wait(100);
+    cy.get('.euiContextMenuItem__text')
+      .contains('Add samples')
+      .trigger('mouseover')
+      .click();
+    cy.wait(100 * 3);
+    cy.get('.euiModalHeader__title[data-test-subj="confirmModalTitleText"]')
+      .contains('Add samples')
+      .should('exist');
+    cy.wait(100);
+    cy.intercept(
+      'POST',
+      '/api/observability/operational_panels/panels/addSamplePanels'
+    ).as('addSamples');
+    cy.get('.euiButton__text').contains('Yes').trigger('mouseover').click();
+    cy.wait('@addSamples').then(() => {
+      cy.get('.euiTableCellContent').contains(SAMPLE_PANEL).should('exist');
     });
-    cy.get('.euiButton__text').contains('Refresh').trigger('mouseover').click();
-    cy.wait(delay);
-    supressResizeObserverIssue();
-    cy.get('button[id="main-content-vis"]')
-      .contains('Visualizations')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay * 2);
-    cy.get('[data-test-subj="eventExplorer__saveManagementPopover"]')
-      .trigger('mouseover')
-      .click();
-    cy.wait(1000);
-    cy.get('[data-test-subj="eventExplorer__querySaveName"]')
-      .focus()
-      .type(PPL_VISUALIZATIONS_NAMES[0], {
-        delay: 50,
-      });
-    cy.get('[data-test-subj="eventExplorer__querySaveConfirm"]')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiToastHeader__title').contains('successfully').should('exist');
-  });
-
-  it('Create second visualization in event analytics', () => {
-    cy.get('[id^=autocomplete-textarea]').focus().type(PPL_VISUALIZATIONS[1], {
-      delay: 50,
-    });
-    cy.get('.euiButton__text').contains('Refresh').trigger('mouseover').click();
-    cy.wait(delay);
-    supressResizeObserverIssue();
-    cy.get('button[id="main-content-vis"]')
-      .contains('Visualizations')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('[data-test-subj="eventExplorer__saveManagementPopover"]')
-      .trigger('mouseover')
-      .click();
-    cy.wait(1000);
-    cy.get('[data-test-subj="eventExplorer__querySaveName"]')
-      .focus()
-      .type(PPL_VISUALIZATIONS_NAMES[1], {
-        delay: 50,
-      });
-    cy.get('[data-test-subj="eventExplorer__querySaveConfirm"]')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiToastHeader__title').contains('successfully').should('exist');
+    cy.wait(100);
   });
 });
 
-describe('Testing panels table', () => {
+describe('Testing notebooks table', () => {
   beforeEach(() => {
-    moveToPanelHome();
+    cy.visit(`${BASE_PATH}/app/observability-dashboards#/notebooks`);
   });
 
-  it('Creates a panel and redirects to the panel', () => {
-    cy.get('.euiButton__text')
-      .contains('Create panel')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('input.euiFieldText').focus().type(SAMPLE_PANEL, {
-      delay: 50,
-    });
+  it('Creates a notebook and redirects to the notebook', () => {
+    cy.get('.euiButton__text').contains('Create notebook').click();
+    cy.wait(delayTime);
+    cy.get('input.euiFieldText').type(TEST_NOTEBOOK);
     cy.get('.euiButton__text')
       .contains(/^Create$/)
-      .trigger('mouseover')
       .click();
-    cy.wait(delay);
+    cy.wait(delayTime);
 
-    cy.contains(SAMPLE_PANEL).should('exist');
+    cy.contains(TEST_NOTEBOOK).should('exist');
   });
 });
 
-describe('Testing a panel', () => {
-  it('Move to test panel', () => {
-    moveToTestPanel();
+describe('Testing paragraphs', () => {
+  beforeEach(() => {
+    cy.visit(`${BASE_PATH}/app/observability-dashboards#/notebooks`);
+    cy.get('.euiTableCellContent').contains(TEST_NOTEBOOK).click();
   });
 
-  it('Opens visualization flyout from empty panel', () => {
-    cy.get('.euiButton')
-      .eq(4)
-      .contains('Add visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiContextMenuItem__text')
-      .contains('Select existing visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiButton').contains('Cancel').trigger('mouseover').click();
-    cy.get('.euiButton')
-      .eq(2)
-      .contains('Add visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiContextMenuItem__text')
-      .contains('Select existing visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiButton').contains('Cancel').trigger('mouseover').click();
-    cy.get('.euiButton')
-      .contains('Add visualization')
-      .first()
-      .trigger('mouseover')
-      .click();
-    cy.get('.euiContextMenuItem__text')
-      .contains('Create new visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiBreadcrumb').contains('Explorer').should('exist');
-    cy.get('.euiCallOut')
-      .contains('No results match your search criteria')
-      .should('exist');
+  it('Goes into a notebook and creates paragraphs', () => {
+    cy.get('.euiButton__text').contains('Add').click();
+    cy.wait(delayTime);
+
+    cy.get('.euiTextArea').should('exist');
+
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime);
+    cy.get('.euiTextColor').contains('Input is required.').should('exist');
+    cy.get('.euiTextArea').clear();
+    cy.get('.euiTextArea').type(MARKDOWN_TEXT);
+    cy.wait(delayTime);
+
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime);
   });
 
-  it('Redirects to correct page on breadcrumb click', () => {
-    moveToTestPanel();
-    cy.get('.euiBreadcrumb')
-      .contains(SAMPLE_PANEL)
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiTitle').contains(SAMPLE_PANEL).should('exist');
-    cy.get('.euiBreadcrumb')
-      .contains('Operational panels')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiTitle').contains('Operational panels').should('exist');
-    cy.get('.euiBreadcrumb')
-      .contains('Observability')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
+  it('Has working breadcrumbs', () => {
+    cy.get('.euiBreadcrumb').contains(TEST_NOTEBOOK).click();
+    cy.wait(delayTime);
+    cy.get('.euiTitle').contains(TEST_NOTEBOOK).should('exist');
+    cy.get('.euiBreadcrumb').contains('Notebooks').click();
+    cy.wait(delayTime);
+    cy.get('.euiTitle').contains('Notebooks').should('exist');
+    cy.get('.euiBreadcrumb').contains('Observability').click();
+    cy.wait(delayTime);
     cy.get('.euiTitle').contains('Event analytics').should('exist');
   });
 
-  it('Change date filter of the panel', () => {
-    moveToTestPanel();
-    cy.get(
-      '.euiButtonEmpty[data-test-subj="superDatePickerToggleQuickMenuButton"]'
-    ).click({
-      force: true,
-    });
-    cy.get('.euiLink').contains('This year').trigger('mouseover').click();
-    cy.wait(delay * 2);
-    cy.get(
-      '.euiSuperDatePicker__prettyFormat[data-test-subj="superDatePickerShowDatesButton"]'
-    )
-      .contains('This year')
+  it('Adds a dashboards visualization paragraph', () => {
+    cy.contains('Add paragraph').click();
+    cy.wait(delayTime);
+    cy.get('.euiContextMenuItem__text').contains('Visualization').click();
+    cy.wait(delayTime);
+
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime);
+    cy.get('.euiTextColor')
+      .contains('Visualization is required.')
       .should('exist');
-    cy.wait(delay);
+
+    cy.get('.euiButton__text').contains('Browse').click();
+    cy.wait(delayTime);
+    cy.get('.euiFieldSearch')
+      .focus()
+      .type('[Flights] Flight Count and Average Ticket Price{enter}');
+    cy.wait(delayTime);
+    cy.get('.euiButton__text').contains('Select').click();
+    cy.wait(delayTime);
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime);
+    cy.get('div.visualization').should('exist');
   });
 
-  it('Add existing visualization #1', () => {
-    cy.get('.euiButton__text')
-      .contains('Add visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiContextMenuItem__text')
-      .contains('Select existing visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('select').select(PPL_VISUALIZATIONS_NAMES[0]);
-    cy.get('button[aria-label="refreshPreview"]').trigger('mouseover').click();
-    cy.wait(delay * 2);
-    cy.get('.plot-container').should('exist');
-    cy.get('.euiButton__text')
-      .contains(new RegExp('^Add$', 'g'))
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiToastHeader__title').contains('successfully').should('exist');
+  it('Adds a SQL query paragraph', () => {
+    cy.contains('Add paragraph').click();
+    cy.wait(delayTime);
+    cy.get('.euiContextMenuItem__text').contains('Code block').click();
+    cy.wait(delayTime);
+
+    cy.get('.euiTextArea').type(SQL_QUERY_TEXT);
+    cy.wait(delayTime);
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime * 5);
+
+    cy.get('b').contains(
+      'select * from opensearch_dashboards_sample_data_flights limit 20'
+    );
+
+    cy.get('.euiDataGrid__overflow').should('exist');
   });
 
-  it('Add existing visualization #2', () => {
-    cy.get('.euiButton__text')
-      .contains('Add visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiContextMenuItem__text')
-      .contains('Select existing visualization')
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('select').select(PPL_VISUALIZATIONS_NAMES[1]);
-    cy.get('button[aria-label="refreshPreview"]').trigger('mouseover').click();
-    cy.wait(delay * 2);
-    cy.get('.plot-container').should('exist');
-    cy.get('.euiButton__text')
-      .contains(new RegExp('^Add$', 'g'))
-      .trigger('mouseover')
-      .click();
-    cy.wait(delay);
-    cy.get('.euiToastHeader__title').contains('successfully').should('exist');
+  it('Adds an observability visualization paragraph', () => {
+    cy.contains('Add paragraph').click();
+    cy.wait(delayTime);
+    cy.get('.euiContextMenuItem__text').contains('Visualization').click();
+    cy.wait(delayTime);
+
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime);
+    cy.get('.euiTextColor')
+      .contains('Visualization is required.')
+      .should('exist');
+
+    cy.get('.euiButton__text').contains('Browse').click();
+    cy.wait(delayTime);
+    cy.get('.euiFieldSearch')
+      .focus()
+      .type('[Logs] Count total requests by tags{enter}');
+    cy.wait(delayTime);
+    cy.get('.euiButton__text').contains('Select').click();
+    cy.wait(delayTime);
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime);
+    cy.get('h5')
+      .contains('[Logs] Count total requests by tags')
+      .should('exist');
+  });
+
+  it('Adds a PPL query paragraph', () => {
+    cy.contains('Add paragraph').click();
+    cy.wait(delayTime);
+    cy.get('.euiContextMenuItem__text').contains('Code block').click();
+    cy.wait(delayTime);
+
+    cy.get('.euiTextArea').type(PPL_QUERY_TEXT);
+    cy.wait(delayTime);
+    cy.get('.euiButton__text').contains('Run').click();
+    cy.wait(delayTime * 5);
+
+    cy.get('b').contains('source=opensearch_dashboards_sample_data_flights');
+
+    cy.get('.euiDataGrid__overflow').should('exist');
   });
 });
