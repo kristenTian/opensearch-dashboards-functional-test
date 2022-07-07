@@ -30,14 +30,6 @@ describe('dashboard sample data validation', () => {
       );
     });
 
-    it('checking opensearch_dashboards_overview display', () => {
-      // Check that opensearch_dashboards_overview is visable
-      commonUI.checkElementExists(
-        `a[href="${path}/app/opensearch_dashboards_overview"]`,
-        1
-      );
-    });
-
     it('checking tutorial_directory display', () => {
       // Check that tutorial_directory is visable
       commonUI.checkElementExists(
@@ -96,34 +88,6 @@ describe('dashboard sample data validation', () => {
 
     after(() => {
       // miscUtils.removeSampleData();
-    });
-
-    it('checking ecommerce dashboards displayed', () => {
-      miscUtils.viewData('ecommerce');
-      commonUI.checkElementContainsValue(
-        'span[title="[eCommerce] Revenue Dashboard"]',
-        1,
-        '\\[eCommerce\\] Revenue Dashboard'
-      );
-      commonUI.checkElementContainsValue(
-        'div[data-test-subj="markdownBody"] > h3',
-        1,
-        'Sample eCommerce Data'
-      );
-    });
-
-    it('checking flights dashboards displayed', () => {
-      miscUtils.viewData('flights');
-      commonUI.checkElementContainsValue(
-        'span[title="[Flights] Global Flight Dashboard"]',
-        1,
-        '\\[Flights\\] Global Flight Dashboard'
-      );
-      commonUI.checkElementContainsValue(
-        'div[data-test-subj="markdownBody"] > h3',
-        1,
-        'Sample Flight data'
-      );
     });
 
     it('checking web logs dashboards displayed', () => {
@@ -311,11 +275,6 @@ describe('dashboard sample data validation', () => {
     });
 
     after(() => {});
-
-    it('checking Stack Management display', () => {
-      // Check that Stack Management home is visable
-      commonUI.checkElementExists('div[data-test-subj="managementHome"]', 1);
-    });
 
     it('checking index patterns link display', () => {
       // Check that index patterns link is visable
