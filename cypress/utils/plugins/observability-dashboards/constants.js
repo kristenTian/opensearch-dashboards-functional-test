@@ -4,7 +4,7 @@
  */
 import { BASE_PATH } from '../../base_constants';
 
-export const delayTime = 1000;
+export const delayTime = 1500;
 
 // trace analytics
 export const TRACE_ID = '8832ed6abbb2a83516461960c89af49d';
@@ -200,7 +200,7 @@ export const landOnPanels = () => {
 
 export const PANEL_DELAY = 100;
 
-export const TEST_PANEL = 'Test Panel';
+export const TEST_PANEL = 'Sample Panel';
 export const SAMPLE_PANEL = '[Logs] Web traffic Panel';
 
 export const SAMPLE_VISUALIZATIONS_NAMES = [
