@@ -12,7 +12,6 @@ const SAMPLE_CLUSTER_METRICS_NODES_STATS_MONITOR =
   'sample_cluster_metrics_nodes_stats_monitor';
 const SAMPLE_CLUSTER_TRIGGER = 'sample_cluster_trigger';
 const SAMPLE_NODE_TRIGGER = 'sample_node_trigger';
-const SAMPLE_ACTION = 'sample_action';
 
 describe('ClusterMetricsMonitor', () => {
   before(() => {
@@ -75,11 +74,6 @@ describe('ClusterMetricsMonitor', () => {
       // Type in the trigger name
       cy.get('input[name="triggerDefinitions[0].name"]').type(
         SAMPLE_CLUSTER_TRIGGER
-      );
-
-      // Type in the action name
-      cy.get('input[name="triggerDefinitions[0].actions.0.name"]').type(
-        SAMPLE_ACTION
       );
 
       // Remove action
