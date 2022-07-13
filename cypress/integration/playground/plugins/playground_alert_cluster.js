@@ -10,7 +10,9 @@ const SAMPLE_CLUSTER_METRICS_HEALTH_MONITOR =
   'sample_cluster_metrics_health_monitor';
 const SAMPLE_CLUSTER_METRICS_NODES_STATS_MONITOR =
   'sample_cluster_metrics_nodes_stats_monitor';
-const SAMPLE_TRIGGER = 'sample_trigger';
+const SAMPLE_CLUSTER_TRIGGER = 'sample_cluster_trigger';
+const SAMPLE_NODE_TRIGGER = 'sample_node_trigger';
+const SAMPLE_ACTION = 'sample_action';
 
 describe('ClusterMetricsMonitor', () => {
   before(() => {
@@ -38,8 +40,8 @@ describe('ClusterMetricsMonitor', () => {
 
   describe('can be created', () => {
     beforeEach(() => {
-      cy.deleteAllMonitors();
-      cy.reload();
+      // cy.deleteAllMonitors();
+      // cy.reload();
     });
 
     it('for the Cluster Health API', () => {
@@ -71,16 +73,23 @@ describe('ClusterMetricsMonitor', () => {
       cy.contains('Add trigger').click({ force: true });
 
       // Type in the trigger name
-      cy.get('input[name="triggerDefinitions[0].name"]').type(SAMPLE_TRIGGER);
+      cy.get('input[name="triggerDefinitions[0].name"]').type(
+        SAMPLE_CLUSTER_TRIGGER
+      );
+
+      // Type in the action name
+      cy.get('input[name="triggerDefinitions[0].actions.0.name"]').type(
+        SAMPLE_ACTION
+      );
+
+      // Remove action
+      cy.get('button:contains("Remove action")').click({ force: true });
 
       // Click the create button
       cy.get('button').contains('Create').click();
 
-      // Confirm we can see only one row in the trigger list by checking <caption> element
-      cy.contains('This table contains 1 row');
-
       // Confirm we can see the new trigger
-      cy.contains(SAMPLE_TRIGGER);
+      cy.contains(SAMPLE_CLUSTER_TRIGGER);
 
       // Go back to the Monitors list
       cy.get('a').contains('Monitors').click();
@@ -119,16 +128,18 @@ describe('ClusterMetricsMonitor', () => {
       cy.contains('Add trigger').click({ force: true });
 
       // Type in the trigger name
-      cy.get('input[name="triggerDefinitions[0].name"]').type(SAMPLE_TRIGGER);
+      cy.get('input[name="triggerDefinitions[0].name"]').type(
+        SAMPLE_NODE_TRIGGER
+      );
+
+      // Remove action
+      cy.get('button:contains("Remove action")').click({ force: true });
 
       // Click the create button
       cy.get('button').contains('Create').click();
 
-      // Confirm we can see only one row in the trigger list by checking <caption> element
-      cy.contains('This table contains 1 row');
-
       // Confirm we can see the new trigger
-      cy.contains(SAMPLE_TRIGGER);
+      cy.contains(SAMPLE_NODE_TRIGGER);
 
       // Go back to the Monitors list
       cy.get('a').contains('Monitors').click();
