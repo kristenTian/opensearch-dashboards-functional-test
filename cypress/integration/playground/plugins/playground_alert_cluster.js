@@ -76,7 +76,7 @@ describe('ClusterMetricsMonitor', () => {
         SAMPLE_CLUSTER_TRIGGER
       );
 
-      cy.wait(1500);
+      cy.wait(5000);
       // Remove action
       cy.get('button:contains("Remove action")').click({ force: true });
 
@@ -127,7 +127,7 @@ describe('ClusterMetricsMonitor', () => {
         SAMPLE_NODE_TRIGGER
       );
 
-      cy.wait(1500);
+      cy.wait(1000);
       // Remove action
       cy.get('button:contains("Remove action")').click({ force: true });
 
