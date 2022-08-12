@@ -109,23 +109,6 @@ describe('AD Http Responses Historical results page', () => {
       });
     });
 
-    it('Aggregations render anomalies', () => {
-      cy.get('body').then(($body) => {
-        if ($body.find('[aria-label="Previous time window"]').length > 0) {
-          cy.getElementByTestId('superDatePickerToggleQuickMenuButton').click();
-        }
-      });
-
-      cy.contains('Refresh').click();
-      cy.wait(2000);
-      cy.contains('Daily max').click();
-      verifyAnomaliesInCharts();
-      cy.contains('Weekly max').click();
-      verifyAnomaliesInCharts();
-      cy.contains('Monthly max').click();
-      verifyAnomaliesInCharts();
-    });
-
     it('Run subsequent historical analysis', () => {
       cy.getElementByTestId('modifyHistoricalAnalysisButton').click();
       cy.getElementByTestId('historicalAnalysisModalHeader').should('exist');
