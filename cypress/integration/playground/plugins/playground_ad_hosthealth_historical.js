@@ -22,10 +22,6 @@ describe('AD Host Health Historical results page', () => {
           expect(parseInt(anomalyOccurrenceCount)).to.be.gte(1);
         });
     });
-    cy.getElementByTestId('anomalyOccurrencesHeader').should(
-      'not.contain',
-      '(0)'
-    );
   };
 
   const verifyNoAnomaliesInCharts = () => {
@@ -44,7 +40,6 @@ describe('AD Host Health Historical results page', () => {
           expect(parseInt(anomalyOccurrenceCount)).to.equal(0);
         });
     });
-    cy.getElementByTestId('anomalyOccurrencesHeader').should('contain', '(0)');
   };
 
   // Creating a sample detector and visiting the config page
