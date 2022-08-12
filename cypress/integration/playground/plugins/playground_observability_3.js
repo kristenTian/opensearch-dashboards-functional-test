@@ -123,9 +123,6 @@ describe('Viewing application', () => {
       .first()
       .click();
     cy.wait(delayTime);
-    cy.get('[id="explorerPlotComponent"]', { timeout: TIMEOUT_DELAY }).should(
-      'exist'
-    );
     cy.get('[data-test-subj="searchAutocompleteTextArea"]', {
       timeout: TIMEOUT_DELAY,
     }).click();

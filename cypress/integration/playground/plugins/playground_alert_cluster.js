@@ -10,7 +10,6 @@ const SAMPLE_CLUSTER_METRICS_HEALTH_MONITOR =
   'sample_cluster_metrics_health_monitor';
 const SAMPLE_CLUSTER_METRICS_NODES_STATS_MONITOR =
   'sample_cluster_metrics_nodes_stats_monitor';
-const SAMPLE_CLUSTER_TRIGGER = 'sample_cluser_trigger';
 const SAMPLE_NODE_TRIGGER = 'sample_node_trigger';
 
 describe('ClusterMetricsMonitor', () => {
@@ -67,24 +66,24 @@ describe('ClusterMetricsMonitor', () => {
       // Press the 'Run for response' button
       cy.get('[data-test-subj="clusterMetricsPreviewButton"]').click();
 
-      // Add a trigger
-      cy.contains('Add trigger').click({ force: true });
+      // // Add a trigger
+      // cy.contains('Add trigger').click({ force: true });
 
-      // Type in the trigger name
-      cy.get('input[name="triggerDefinitions[0].name"]').type(
-        SAMPLE_CLUSTER_TRIGGER
-      );
+      // // Type in the trigger name
+      // cy.get('input[name="triggerDefinitions[0].name"]').type(
+      //   SAMPLE_CLUSTER_TRIGGER
+      // );
 
-      cy.wait(40000);
+      // cy.wait(20000);
 
-      // Click Remove action
-      cy.get('button:contains("Remove action")').click();
+      // // Click Remove action
+      // cy.get('button:contains("Remove action")').click();
 
       // Click the create button
       cy.get('button').contains('Create').click();
 
-      // Confirm we can see the new trigger
-      cy.contains(SAMPLE_CLUSTER_TRIGGER);
+      // // Confirm we can see the new trigger
+      // cy.contains(SAMPLE_CLUSTER_TRIGGER);
 
       // Go back to the Monitors list
       cy.get('a').contains('Monitors').click();
