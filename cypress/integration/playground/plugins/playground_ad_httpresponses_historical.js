@@ -22,10 +22,6 @@ describe('AD Http Responses Historical results page', () => {
           expect(parseInt(anomalyOccurrenceCount)).to.be.gte(1);
         });
     });
-    cy.getElementByTestId('anomalyOccurrencesHeader').should(
-      'not.contain',
-      '(0)'
-    );
   };
 
   const verifyNoAnomaliesInCharts = () => {

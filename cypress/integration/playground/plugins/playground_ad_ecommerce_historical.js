@@ -44,7 +44,6 @@ describe('AD Ecommerce Historical results page', () => {
           expect(parseInt(anomalyOccurrenceCount)).to.equal(0);
         });
     });
-    cy.getElementByTestId('anomalyOccurrencesHeader').should('contain', '(0)');
   };
 
   // Creating a sample detector and visiting the config page

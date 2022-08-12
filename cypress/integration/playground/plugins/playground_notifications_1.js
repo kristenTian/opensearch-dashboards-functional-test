@@ -13,7 +13,9 @@ import { BASE_PATH } from '../../../utils/base_constants';
 
 describe('Test create email senders', () => {
   beforeEach(() => {
-    cy.visit(`${BASE_PATH}/app/${NOTIFICATIONS_PLUGIN_NAME}#email-senders`);
+    cy.visit(`${BASE_PATH}/app/${NOTIFICATIONS_PLUGIN_NAME}#email-senders`, {
+      waitForGetTenant: false,
+    });
     cy.wait(delay * 3);
   });
 

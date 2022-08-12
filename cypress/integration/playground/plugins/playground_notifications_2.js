@@ -13,7 +13,9 @@ import { BASE_PATH } from '../../../utils/base_constants';
 
 describe('Test create channels', () => {
   beforeEach(() => {
-    cy.visit(`${BASE_PATH}/app/${NOTIFICATIONS_PLUGIN_NAME}#create-channel`);
+    cy.visit(`${BASE_PATH}/app/${NOTIFICATIONS_PLUGIN_NAME}#create-channel`, {
+      waitForGetTenant: false,
+    });
     cy.wait(delay * 3);
   });
 

@@ -32,8 +32,8 @@ describe('ClusterMetricsMonitor', () => {
       waitForGetTenant: false,
     });
 
-    // Common text to wait for to confirm page loaded, give up to 20 seconds for initial load
-    cy.contains('Create monitor', { timeout: 20000 });
+    // Common text to wait for to confirm page loaded, give up to 40 seconds for initial load
+    cy.contains('Create monitor', { timeout: 40000 });
   });
 
   describe('can be created', () => {
