@@ -132,7 +132,7 @@ describe('ClusterMetricsMonitor', () => {
         SAMPLE_NODE_TRIGGER
       );
 
-      cy.wait(10000);
+      cy.wait(30000);
 
       // Click Remove action
       cy.get('button:contains("Remove action")').click();

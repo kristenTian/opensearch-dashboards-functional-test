@@ -154,9 +154,6 @@ describe('Viewing application', () => {
     cy.get('[data-test-subj="app-analytics-panelTab"]', {
       timeout: TIMEOUT_DELAY,
     }).click();
-    cy.get('[data-test-subj="Flights to VeniceVisualizationPanel"]', {
-      timeout: TIMEOUT_DELAY,
-    }).should('exist');
     cy.get('[id="explorerPlotComponent"]', { timeout: TIMEOUT_DELAY }).should(
       'exist'
     );
