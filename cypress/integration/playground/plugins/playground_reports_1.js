@@ -116,7 +116,7 @@ describe('Test reports', () => {
     setReportTriggerToSchedule();
     cy.wait(WAIT_TIME);
     selectIntervalScheduleFrequency();
-    inputTextIntoField('#recurringByIntervalNumber', '5');
+    inputTextIntoField('#recurringByIntervalNumber', '900');
     clickCreateReportDefinitionButton();
     cy.wait(3000);
     verifyOnReportingLandingPage();
@@ -131,7 +131,7 @@ describe('Test reports', () => {
     setReportTriggerToSchedule();
     cy.wait(WAIT_TIME);
     selectIntervalScheduleFrequency();
-    inputTextIntoField('#recurringByIntervalNumber', '5');
+    inputTextIntoField('#recurringByIntervalNumber', '900');
     clickCreateReportDefinitionButton();
     cy.wait(3000);
     verifyOnReportingLandingPage();
@@ -146,7 +146,7 @@ describe('Test reports', () => {
     setReportTriggerToSchedule();
     cy.wait(WAIT_TIME);
     selectIntervalScheduleFrequency();
-    inputTextIntoField('#recurringByIntervalNumber', '5');
+    inputTextIntoField('#recurringByIntervalNumber', '900');
     clickCreateReportDefinitionButton();
     cy.wait(3000);
     verifyOnReportingLandingPage();
