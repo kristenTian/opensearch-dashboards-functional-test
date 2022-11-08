@@ -36,6 +36,13 @@ export const testIndexDataSet = [
   },
 ];
 
+export const moviegeekDataSet = [
+  {
+    moviegeek_url:
+      'https://raw.githubusercontent.com/elastic-analytics/opensearch-dashboards-functional-test/playground-preview/cypress/utils/plugins/observability-dashboards/json/moviegreek.json',
+  },
+];
+
 export const supressResizeObserverIssue = () => {
   // exception is thrown on loading EuiDataGrid in cypress only, ignore for now
   cy.on('uncaught:exception', (err) => {

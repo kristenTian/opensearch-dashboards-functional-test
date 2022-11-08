@@ -1,0 +1,63 @@
+{
+    "script": {
+        "lang": "mustache",
+        "source": {
+            "size": "{{size}}{{^size}}20{{/size}}",
+            "query": {
+                "bool": {
+                    "must": [{
+                        "multi_match": {
+                            "query": "{{query}}",
+                            "fields": [
+                                "directors",
+                                "title",
+                                "actors",
+                                "writers",
+                                "plot"
+                            ]
+                        }
+                    }]
+                }
+            },
+            "aggs": {
+                "Genre": {
+                    "terms": {
+                        "field": "genre.keyword",
+                        "size": 10
+                    }
+                },
+                "Actors": {
+                    "terms": {
+                        "field": "actors.keyword",
+                        "size": 10
+                    }
+                },
+                "Directors": {
+                    "terms": {
+                        "field": "directors.keyword",
+                        "size": 10
+                    }
+                },
+                "Ratings": {
+                    "range": {
+                        "field": "imdb_rating",
+                        "ranges": [{
+                            "key": "Above 7",
+                            "from": 7,
+                            "to": 10
+                        },
+                        {
+                            "key": "Between 5 to 7",
+                            "from": 5,
+                            "to": 6.9
+                        },
+                        {
+                            "to": 4.9,
+                            "key": "Below 5"
+                        }]
+                    }
+                }
+            }
+        }
+    }
+}
