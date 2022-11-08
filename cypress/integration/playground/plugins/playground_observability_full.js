@@ -8,22 +8,22 @@
 import { moviegeekDataSet } from '../../../utils/constants';
 
 describe('Testing a panel', () => {
-  //   it('Adds moviegreek documents', () => {
-  //     cy.exec(
-  //       'curl http://k8s-default-ingressd-bcd9dcba00-1351362808.us-east-1.elb.amazonaws.com'
-  //     ).then((result) => {
-  //       cy.log(result.stdout);
-  //       cy.log(result.stderr);
-  //     });
-  //   });
-  //   it('Adds moviegeek-logs index', () => {
-  //     cy.exec(
-  //       'curl http://k8s-default-ingressm-01116c5b67-1450607518.us-east-1.elb.amazonaws.com'
-  //     ).then((result) => {
-  //       cy.log(result.stdout);
-  //       cy.log(result.stderr);
-  //     });
-  //   });
+  it('Adds moviegreek documents', () => {
+    cy.exec(
+      'curl http://k8s-default-ingressd-bcd9dcba00-893284452.us-east-1.elb.amazonaws.com/load'
+    ).then((result) => {
+      cy.log(result.stdout);
+      cy.log(result.stderr);
+    });
+  });
+  it('Adds moviegeek-logs index', () => {
+    cy.exec(
+      'curl http://k8s-default-ingressm-01116c5b67-839335308.us-east-1.elb.amazonaws.com'
+    ).then((result) => {
+      cy.log(result.stdout);
+      cy.log(result.stderr);
+    });
+  });
   it('enable Movie Geek to search the data', () => {
     const dumpDataSet = (moviegeek_url) => {
       cy.request(moviegeek_url).then((response) => {
