@@ -39,7 +39,7 @@ export const testIndexDataSet = [
 export const moviegeekDataSet = [
   {
     moviegeek_url:
-      'https://raw.githubusercontent.com/elastic-analytics/opensearch-dashboards-functional-test/playground-preview/cypress/utils/plugins/observability-dashboards/json/moviegreek.json',
+      'https://raw.githubusercontent.com/elastic-analytics/opensearch-dashboards-functional-test/playground-preview/cypress/utils/plugins/observability-dashboards/json/moviegeek.json',
   },
 ];
 
