@@ -7,10 +7,10 @@
 
 import { moviegeekDataSet } from '../../../utils/constants';
 
-describe('Testing a panel', () => {
-  it('Adds moviegreek documents', () => {
+describe('Adds moviegeek related stuff', () => {
+  it('Adds moviegeek documents', () => {
     cy.exec(
-      'curl http://k8s-default-ingressd-bcd9dcba00-893284452.us-east-1.elb.amazonaws.com/load'
+      'curl http://k8s-default-ingressd-bcd9dcba00-612390087.us-east-1.elb.amazonaws.com/load'
     ).then((result) => {
       cy.log(result.stdout);
       cy.log(result.stderr);
@@ -18,7 +18,7 @@ describe('Testing a panel', () => {
   });
   it('Adds moviegeek-logs index', () => {
     cy.exec(
-      'curl http://k8s-default-ingressm-01116c5b67-839335308.us-east-1.elb.amazonaws.com'
+      'curl http://k8s-default-ingressm-01116c5b67-1615084315.us-east-1.elb.amazonaws.com'
     ).then((result) => {
       cy.log(result.stdout);
       cy.log(result.stderr);
@@ -43,7 +43,6 @@ describe('Testing a panel', () => {
         });
       });
     };
-
     moviegeekDataSet.forEach(({ moviegeek_url }) => dumpDataSet(moviegeek_url));
   });
 });
