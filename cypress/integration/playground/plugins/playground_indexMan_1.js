@@ -27,9 +27,6 @@ describe('Policies', () => {
     });
 
     it('successfully', () => {
-      // Confirm we loaded empty state
-      cy.contains('There are no existing policies');
-
       // Route us to create policy page
       cy.contains('Create policy').click({ force: true });
 
