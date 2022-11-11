@@ -74,8 +74,8 @@ describe('Creates an Moviegeek application', () => {
   beforeEach(() => {
     moveToCreatePage();
   });
-  cy.wait(30000);
   it('Creates an Moviegeek application', () => {
+    cy.wait(30000);
     expectMessageOnHover('createButton', 'Name is required.');
     cy.get('[data-test-subj="nameFormRow"]', { timeout: TIMEOUT_DELAY }).type(
       'Moviegeek Analytics'
