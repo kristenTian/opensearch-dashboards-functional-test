@@ -24,7 +24,7 @@ describe('Adds moviegeek related stuff', () => {
       cy.log(result.stderr);
     });
   });
-  it('enable Movie Geek to search the data', () => {
+  it('Enable Movie Geek to search the data', () => {
     const dumpDataSet = (moviegeek_url) => {
       cy.request(moviegeek_url).then((response) => {
         cy.request({
@@ -44,5 +44,20 @@ describe('Adds moviegeek related stuff', () => {
       });
     };
     moviegeekDataSet.forEach(({ moviegeek_url }) => dumpDataSet(moviegeek_url));
+  });
+  it('Delete Movie Geek index instead of reindex', () => {
+    cy.request({
+      method: 'POST',
+      form: true,
+      url: 'api/console/proxy',
+      headers: {
+        'content-type': 'application/json;charset=UTF-8',
+        'osd-xsrf': true,
+      },
+      qs: {
+        path: 'moviegeek-logs-*',
+        method: 'DELETE',
+      },
+    });
   });
 });
