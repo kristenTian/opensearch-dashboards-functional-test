@@ -242,7 +242,7 @@ export const PPL_FILTER =
  * App constants
  */
 
-export const TYPING_DELAY = 500;
+export const TYPING_DELAY = 1000;
 export const TIMEOUT_DELAY = Cypress.env('SECURITY_ENABLED') ? 60000 : 30000;
 
 export const moveToHomePage = () => {
