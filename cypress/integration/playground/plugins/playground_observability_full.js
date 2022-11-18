@@ -114,7 +114,11 @@ describe('Creates an Moviegeek application', () => {
       timeout: TIMEOUT_DELAY,
     })
       .focus()
-      .type(moviegeekQuery, { delay: TYPING_DELAY });
+      .wait(TYPING_DELAY)
+      .type(moviegeekQuery, {
+        delay: TYPING_DELAY,
+        force: true,
+      });
     cy.get('[data-test-subj="createButton"]', {
       timeout: TIMEOUT_DELAY,
     }).should('not.be.disabled');
